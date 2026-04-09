@@ -72,7 +72,7 @@ The schema also enables row-level security for protected message access while st
 ### 1. Clone the project
 
 ```bash
-git clone <your-repo-url>
+git clone <repo-url>
 cd cloak-it
 ```
 
@@ -159,8 +159,8 @@ Small, focused pull requests are preferred over large disruptive changes.
 
 ## Roadmap Ideas
 
-- better message moderation and abuse prevention
-- copy/share improvements for public links
+- message security and abuse prevention
+- copy/share implementation/improvements for public links
 - richer dashboard interactions
 - improved validation and testing
 - deployment documentation
