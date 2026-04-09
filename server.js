@@ -1,25 +1,39 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+const isProduction = process.env.NODE_ENV === 'production';
 
-// middleware
-app.use(express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+if (isProduction) {
+  app.set('trust proxy', 1);
+}
 
-app.use(session({
+app.disable('x-powered-by');
+
+const sessionConfig = {
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  // Save only sessions that actually store data such as auth or flash state.
+  saveUninitialized: false,
   cookie: {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: isProduction,
     maxAge: 60 * 60 * 1000
   }
-}));
+};
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session(sessionConfig));
 
 app.use(flash());
 
@@ -31,15 +45,12 @@ app.use((req, res, next) => {
   // flash the username to the register page on failed registration
   res.locals.username = req.flash('username')[0] || '';
 
-  // flash the message to the send message page on failed message sending
-  // res.locals.message = req.flash('message')[0] || '';
-
   next();
 });
 
 // set ejs as view engine
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 
 // import routes
 const indexRoutes = require('./routes/index');
@@ -60,8 +71,6 @@ app.use(logoutRoutes);
 app.use(changePasswordRoutes);
 app.use(dashboardRoutes);
 app.use(messageRoutes);
-
-const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
