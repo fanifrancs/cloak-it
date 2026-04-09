@@ -1,0 +1,70 @@
+<%- include('partials/head', { title: 'Dashboard | Cloak it' }) %>
+<%- include('partials/navbar', { navType: 'app', activePage: 'dashboard' }) %>
+
+<main class="dashboard-layout">
+    <section class="glass-panel dashboard-intro">
+        <div class="dashboard-intro-top">
+            <div>
+                <span class="hero-kicker">Private inbox</span>
+                <h1 class="dashboard-title">Welcome back, <%= user?.username || 'Operator' %>.</h1>
+                <p class="dashboard-copy">
+                    Click the button below to copy your unique link so you can share it
+                    with people and start receiving anonymous messages.
+                </p>
+            </div>
+
+            <div class="copy-link-block">
+                <button
+                    type="button"
+                    class="btn nav-cta copy-link-btn"
+                    id="copyMessageLinkBtn"
+                    data-username="<%= user?.username || 'operator' %>"
+                >
+                    <i class="bi bi-link-45deg btn-icon" aria-hidden="true"></i>
+                    <span>Copy My Link</span>
+                </button>
+                <p class="copy-link-hint" id="copyMessageLinkFeedback">Share your unique message link with anyone.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="message-stack" id="messageStack">
+        <%- include('partials/flash-alerts') %>
+
+        <% if (!messages || messages.length === 0) { %>
+            <section class="glass-panel empty-state-panel">
+                <h2 class="empty-state-title">No messages yet.</h2>
+                <p class="empty-state-copy">
+                    Share your unique link and your anonymous messages will start showing up here.
+                </p>
+            </section>
+        <% } %>
+
+        <% if (messages && messages.length > 0) { %>
+            <% messages.forEach((message) => { %>
+                <article class="glass-panel message-card" data-message-card data-message-id="<%= message.id %>">
+                    <span class="message-badge">
+                        <%= new Date(message.created_at).toLocaleString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            timeZone: 'Africa/Lagos'
+                        }) %>
+                    </span>
+                    <p class="message-text"><%= message.content %></p>
+                    <div class="message-actions">
+                        <a href="#" class="message-link share-link" data-share-message><i class="bi bi-share btn-icon" aria-hidden="true"></i><span>Share</span></a>
+                        <a href="#" class="message-link delete-link" data-delete-message data-message-id="<%= message.id %>"><i class="bi bi-trash3 btn-icon" aria-hidden="true"></i><span>Delete</span></a>
+                    </div>
+                </article>
+            <% }) %>
+        <% } %>
+    </section>
+</main>
+
+<%- include('partials/legal-footer') %>
+</div>
+
+<%- include('partials/legal-modals') %>
+<%- include('partials/scripts', { pageScripts: ['/js/dashboard.js'] }) %>

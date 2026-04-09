@@ -1,0 +1,23 @@
+<%- include('partials/head', { title: 'Cloak it' }) %>
+<%- include('partials/navbar', { navType: 'auth', activePage: 'home' }) %>
+
+<main class="hero-wrapper">
+    <section class="glass-panel hero-panel">
+        <span class="hero-kicker">Anonymous messaging made simple</span>
+        <h1 class="hero-title">Say what matters without giving away who you are.</h1>
+        <p class="hero-copy">
+            Cloak it gives people a safer way to send honest thoughts, quiet feedback,
+            and private messages. No bots, no fake senders. Receive messages that feels open, direct, and honest.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+            <a href="/register" class="btn hero-btn"><i class="bi bi-stars btn-icon" aria-hidden="true"></i><span>Get started</span></a>
+            <a href="/login" class="btn hero-secondary"><i class="bi bi-box-arrow-in-right btn-icon" aria-hidden="true"></i><span>I already have an account</span></a>
+        </div>
+    </section>
+</main>
+
+<%- include('partials/legal-footer') %>
+</div>
+
+<%- include('partials/legal-modals') %>
+<%- include('partials/scripts', { pageScripts: [] }) %>

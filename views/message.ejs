@@ -1,0 +1,35 @@
+<%- include('partials/head', { title: `Send a Message | Cloak it` }) %>
+<%- include('partials/navbar', { navType: user ? 'app' : 'auth', activePage: '' }) %>
+
+<main class="auth-layout">
+    <section class="glass-panel auth-panel message-page-panel">
+        <span class="hero-kicker">Anonymous message</span>
+        <h1 class="auth-title">Send a message to <%= recipient.username %>.</h1>
+        <p class="auth-copy">
+            Your message will be delivered anonymously. Keep it respectful, thoughtful, and safe.
+        </p>
+
+        <%- include('partials/flash-alerts') %>
+
+        <form action="/<%= recipient.username %>/message" method="POST" class="auth-form">
+            <div class="message-toolbar">
+                <button type="button" class="btn random-btn"><i class="bi bi-shuffle btn-icon" aria-hidden="true"></i><span>Random</span></button>
+            </div>
+
+            <div class="mb-3">
+                <label for="content" class="form-label">Your message</label>
+                <textarea class="form-control custom-input custom-textarea" name="content" id="content" placeholder="Write something anonymous..." rows="8" required></textarea>
+            </div>
+
+            <div class="message-form-actions">
+                <button type="submit" class="btn cloak-btn"><i class="bi bi-incognito btn-icon" aria-hidden="true"></i><span>Cloak it</span></button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<%- include('partials/legal-footer') %>
+</div>
+
+<%- include('partials/legal-modals') %>
+<%- include('partials/scripts', { pageScripts: ['/js/message.js'] }) %>

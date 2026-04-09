@@ -1,0 +1,35 @@
+<%- include('partials/head', { title: 'Login | Cloak it' }) %>
+<%- include('partials/navbar', { navType: 'auth', activePage: 'login' }) %>
+
+<main class="auth-layout">
+    <section class="glass-panel auth-panel">
+        <span class="hero-kicker">Welcome back</span>
+        <h1 class="auth-title">Login to access your messages.</h1>
+
+        <%- include('partials/flash-alerts') %>
+
+        <form action="/login" method="POST" class="auth-form">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control custom-input" name="username" value="<%= username || '' %>" id="username" placeholder="Enter username" minlength="3" maxlength="20" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control custom-input" name="password" id="password" placeholder="Password" minlength="6" required>
+            </div>
+
+            <p id="error" class="client-error"></p>
+
+            <button type="submit" class="btn form-btn"><i class="bi bi-box-arrow-in-right btn-icon" aria-hidden="true"></i><span>Login</span></button>
+        </form>
+
+        <p class="auth-switch">Don't have an account? <a href="/register">Register here</a></p>
+    </section>
+</main>
+
+<%- include('partials/legal-footer') %>
+</div>
+
+<%- include('partials/legal-modals') %>
+<%- include('partials/scripts', { pageScripts: ['/js/login.js'] }) %>

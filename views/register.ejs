@@ -1,0 +1,49 @@
+<%- include('partials/head', { title: 'Register | Cloak it' }) %>
+<%- include('partials/navbar', { navType: 'auth', activePage: 'register' }) %>
+
+<main class="auth-layout">
+    <section class="glass-panel auth-panel">
+        <span class="hero-kicker">Create your account</span>
+        <h1 class="auth-title">Receive anonymous messages in a simple sincere space.</h1>
+        <p class="auth-copy">
+            Set up your account in seconds, share your link and start receiving anonymous messages. Make sure you use a password you can remember, because you won't be able to recover it if you forget it.
+        </p>
+
+        <%- include('partials/flash-alerts') %>
+
+        <form action="/register" method="POST" class="auth-form">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control custom-input" name="username" value="<%= username || '' %>" id="username" placeholder="Enter username" minlength="3" maxlength="20" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control custom-input" name="password" id="password" placeholder="Password" minlength="6" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm password</label>
+                <input type="password" class="form-control custom-input" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" minlength="6" required>
+            </div>
+
+            <p id="error" class="client-error"></p>
+            <p class="form-consent">
+                By registering, I agree to the
+                <button type="button" class="inline-legal-link" data-bs-toggle="modal" data-bs-target="#privacyPolicyModal"><span>Privacy Policy</span></button>
+                and
+                <button type="button" class="inline-legal-link" data-bs-toggle="modal" data-bs-target="#termsOfUseModal"><span>Terms of Use</span></button>.
+            </p>
+
+            <button type="submit" class="btn form-btn"><i class="bi bi-person-plus btn-icon" aria-hidden="true"></i><span>Register</span></button>
+        </form>
+
+        <p class="auth-switch">Already have an account? <a href="/login">Login here</a></p>
+    </section>
+</main>
+
+<%- include('partials/legal-footer') %>
+</div>
+
+<%- include('partials/legal-modals') %>
+<%- include('partials/scripts', { pageScripts: ['/js/register.js'] }) %>

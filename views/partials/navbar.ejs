@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg glass-nav">
+    <div class="container-fluid px-0">
+        <a class="navbar-brand brand-mark" href="/">Cloak it</a>
+        <button class="navbar-toggler border-0 shadow-none nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#siteNavbar" aria-controls="siteNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="siteNavbar">
+            <div class="ms-auto d-flex flex-column flex-lg-row gap-2 pt-3 pt-lg-0">
+                <% if (navType === 'auth') { %>
+                    <a href="/login" class="btn nav-cta <%= activePage === 'login' ? 'active-nav' : '' %>"><i class="bi bi-box-arrow-in-right btn-icon" aria-hidden="true"></i><span>Login</span></a>
+                    <a href="/register" class="btn nav-cta <%= activePage === 'register' ? 'active-nav' : '' %>"><i class="bi bi-person-plus btn-icon" aria-hidden="true"></i><span>Register</span></a>
+                <% } %>
+
+                <% if (navType === 'app') { %>
+                    <a href="/dashboard" class="btn nav-cta <%= activePage === 'dashboard' ? 'active-nav' : '' %>"><i class="bi bi-envelope btn-icon" aria-hidden="true"></i><span>Messages</span></a>
+                    <a href="/change-password" class="btn nav-cta <%= activePage === 'change-password' ? 'active-nav' : '' %>"><i class="bi bi-shield-lock btn-icon" aria-hidden="true"></i><span>Change Password</span></a>
+                    <form action="/logout" method="POST" class="nav-inline-form">
+                        <button type="submit" class="btn nav-cta nav-submit-btn"><i class="bi bi-box-arrow-right btn-icon" aria-hidden="true"></i><span>Logout</span></button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
