@@ -72,6 +72,28 @@ app.use(changePasswordRoutes);
 app.use(dashboardRoutes);
 app.use(messageRoutes);
 
+app.use((req, res) => {
+  return res.status(404).render('error', {
+    status: 404,
+    message: 'The page you are looking for does not exist.'
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  return res.status(err.status || 500).render('error', {
+    status: err.status || 500,
+    message: isProduction
+      ? 'Something went wrong. Please try again.'
+      : err.message || 'Something went wrong'
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
